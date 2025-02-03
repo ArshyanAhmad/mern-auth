@@ -33,7 +33,7 @@ const userSchema = new Schema(
          type: String,
          default: "",
       },
-      resetOtpExpireAt: {
+      resetOtpExpiredAt: {
          type: Number,
          default: 0,
       },
@@ -49,5 +49,10 @@ userSchema.pre("save", async function (next) {
    this.password = await bcryptjs.hash(this.password, 10);
    next();
 });
+
+userSchema.methods.isPasswordCorrect = async function (password) {
+   const isMatch = await bcryptjs.compare(password, this.password);
+   return isMatch;
+};
 
 export const User = mongoose.models.user || mongoose.model("User", userSchema);
