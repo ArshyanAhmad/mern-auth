@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
 
-export const isAuthenticated = async (req, res, next) => {
+export const userAuth = async (req, res, next) => {
    const { token } = req.cookies;
 
    if (!token) {
