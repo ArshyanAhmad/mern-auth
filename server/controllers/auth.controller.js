@@ -210,6 +210,7 @@ export const sendVerificationOtp = async (req, res, next) => {
 
 export const verifyEmail = async (req, res, next) => {
    const { userId, otp } = req.body;
+
    if (!userId || !otp) {
       return res.status(400).json({
          success: false,
@@ -257,4 +258,12 @@ export const verifyEmail = async (req, res, next) => {
          message: `Verification failed ${error.message}`,
       });
    }
+};
+
+// Send OTP to user email
+
+export const sendResetPasswordOtp = async (req, res, next) => {
+   const { email } = req.body;
+
+   const user = await User.findOne({ email });
 };

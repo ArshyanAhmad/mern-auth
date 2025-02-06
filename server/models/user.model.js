@@ -55,4 +55,4 @@ userSchema.methods.isPasswordCorrect = async function (password) {
    return isMatch;
 };
 
-export const User = mongoose.models.user || mongoose.model("User", userSchema);
+export const User = mongoose.models.user || mongoose.model("user", userSchema);

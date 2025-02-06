@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
 
 export const isAuthenticated = async (req, res, next) => {
@@ -18,7 +18,7 @@ export const isAuthenticated = async (req, res, next) => {
       if (!mongoose.Types.ObjectId.isValid(decoded.id)) {
          return res.status(401).json({
             success: false,
-            message: "Invalid Id! Not authorized",
+            message: "Invalid Id!",
          });
       }
 
@@ -27,7 +27,7 @@ export const isAuthenticated = async (req, res, next) => {
       if (!user) {
          return res.status(401).json({
             success: false,
-            message: "User not found! Not authorized",
+            message: "User not found!",
          });
       }
 
@@ -37,7 +37,7 @@ export const isAuthenticated = async (req, res, next) => {
       } else {
          return res.status(401).json({
             success: false,
-            message: "Invalid token! Not authorized",
+            message: "User not authorized login again!",
          });
       }
    } catch (error) {
