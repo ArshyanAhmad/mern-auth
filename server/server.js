@@ -10,10 +10,17 @@ import userRouer from "./routes/get.user.routes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true }));
+app.use(
+   cors({
+      credentials: true,
+      origin: allowedOrigins,
+   })
+);
 
 // API Endpoints
 

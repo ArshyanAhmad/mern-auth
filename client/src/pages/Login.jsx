@@ -2,6 +2,9 @@ import { useState } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
+
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const Login = () => {
@@ -18,7 +21,6 @@ const Login = () => {
    const onSubmitHandler = async (e) => {
       try {
          e.preventDefault();
-         console.log(name, email, password);
          axios.defaults.withCredentials = true;
 
          if (state === "Sign Up") {
@@ -32,13 +34,23 @@ const Login = () => {
                setIsLoggedIn(true);
                navigate("/");
             } else {
-               console.log(data.message);
+               toast.error(data.message);
             }
          } else {
-            console.log("Login");
+            const { data } = await axios.post(`${backendUrl}/api/auth/login`, {
+               email,
+               password,
+            });
+
+            if (data.success) {
+               setIsLoggedIn(true);
+               navigate("/");
+            } else {
+               toast.error(data.message);
+            }
          }
       } catch (error) {
-         console.log(error);
+         toast.error(error.response.data.message);
       }
    };
 
