@@ -182,6 +182,7 @@ export const sendVerificationOtp = async (req, res, next) => {
 
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
+      // verify otp
       user.verifyOtp = otp;
       user.verifyOtpExpiredAt = Date.now() + 24 * 60 * 60 * 1000; // 1 day
 
@@ -208,6 +209,7 @@ export const sendVerificationOtp = async (req, res, next) => {
    }
 };
 
+// verify email
 export const verifyEmail = async (req, res, next) => {
    const { userId, otp } = req.body;
 
